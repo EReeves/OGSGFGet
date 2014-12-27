@@ -63,7 +63,7 @@ namespace OGSGFGet
 
         public static string GetPlayerID(string username)
         {
-            var url = "https://online-go.com/api/v1/players?username=" + username;
+            var url = "http://online-go.com/api/v1/players?username=" + username;
             var ds = JsonGet(url);
 
             //Player not found : Player found
