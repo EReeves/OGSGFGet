@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
+# Visual Studio 2012
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGSGFGet", "OGSGFGet\OGSGFGet.csproj", "{FE6088B2-825C-4FCF-832F-5DC61F24A912}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OGSGFGet.mono", "OGSGFGet.mono\OGSGFGet.mono.csproj", "{84AA648D-869F-4B20-B470-7088077C2C18}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,17 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{84AA648D-869F-4B20-B470-7088077C2C18}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{84AA648D-869F-4B20-B470-7088077C2C18}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{84AA648D-869F-4B20-B470-7088077C2C18}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{84AA648D-869F-4B20-B470-7088077C2C18}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FE6088B2-825C-4FCF-832F-5DC61F24A912}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FE6088B2-825C-4FCF-832F-5DC61F24A912}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE6088B2-825C-4FCF-832F-5DC61F24A912}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE6088B2-825C-4FCF-832F-5DC61F24A912}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = OGSGFGet\OGSGFGet.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

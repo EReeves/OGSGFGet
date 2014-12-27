@@ -110,7 +110,6 @@ namespace OGSGFGet
         private static StreamReader WebRequestWrapperRaw(string url)
         {
             var wr = WebRequest.Create(url);
-            string result;
 
             var hr = (HttpWebResponse)wr.GetResponse();
             var stream = hr.GetResponseStream();
