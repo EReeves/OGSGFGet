@@ -50,6 +50,7 @@ namespace OGSGFGet
 
         private static string WebRequestWrapper(string url)
         {
+            System.Net.ServicePointManager.ServerCertificateValidationCallback += (o,c,ch,er) => true;
             var wr = WebRequest.Create(url);
             string result;
 
@@ -109,6 +110,7 @@ namespace OGSGFGet
 
         private static StreamReader WebRequestWrapperRaw(string url)
         {
+            System.Net.ServicePointManager.ServerCertificateValidationCallback += (o,c,ch,er) => true;
             var wr = WebRequest.Create(url);
 
             var hr = (HttpWebResponse)wr.GetResponse();
