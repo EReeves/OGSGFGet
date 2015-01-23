@@ -19,18 +19,22 @@ namespace OGSGFGet
             Console.WriteLine("Input the amount of games to download(make sure you have this many!): ");
             var count = Convert.ToInt32(Console.ReadLine());
 
+			Console.WriteLine("Would you like to include bot games? Y/N: ");
+			var yn = Console.ReadLine();
+			var botgames = yn == "Y" || yn == "y";
+
             Console.WriteLine("Collecting your games, this may take a little while, we don't want to hit the server too hard!");
 
             try
             {
                 var pid = GetPlayerID(un);
-                var games = PlayerGameList(pid, count);
+                var games = PlayerGameList(pid, count, botgames);
 
                 for (var i=0;i<games.Count();i++)
                 {
-                    var sgf = DownloadSGF(games[i]);
-                    Thread.Sleep(1000);
-                    File.WriteAllText(games[i] + ".sgf",sgf);
+					var sgf = DownloadSGF(games[i].Value);
+                    Thread.Sleep(500);
+					File.WriteAllText(games[i].Key + ".sgf",sgf);
                     Console.Clear();
                     Console.WriteLine("Games Collected " + (i+1) + " out of " + count);
                 }
@@ -71,17 +75,17 @@ namespace OGSGFGet
             return ds["results"][0]["id"] == null ? "" : ds["results"][0]["id"].ToString();
         }
 
-        public static string[] PlayerGameList(string id, int count)
+		public static KeyValuePair<string,string>[] PlayerGameList(string id, int count, bool bots)
         {
             var page = 1;
 
-            var gameList = new List<string>();
+			var gameList = new List<KeyValuePair<string,string>>();
 
             var gameCount = 0;
 
             while (count > gameCount)
             {
-                Thread.Sleep(1000);
+                Thread.Sleep(500);
 
                 var url = "http://online-go.com/api/v1/players/" + id + "/games?ordering=-id&page=" + page;
                 var ds = JsonGet(url);
@@ -92,8 +96,20 @@ namespace OGSGFGet
                     if (count <= gameCount) break;
                     var gid = g["id"].ToString();
                     if (g["ended"].ToString() == "") continue;
-                    gameCount++;
-                    gameList.Add(gid);
+					if(!bots){
+					if (g ["players"] ["white"] ["ui_class"].ToString () == "bot") continue;
+					if (g ["players"] ["black"] ["ui_class"].ToString () == "bot") continue;
+					}
+
+					string title = "";
+					title += g["players"]["black"]["username"];
+					title += " vs ";
+					title += g["players"]["white"]["username"];
+					var winner = g ["black_lost"].Value<bool>() ? " W+" : " B+";
+					title += winner + g ["outcome"].ToString();
+
+					gameCount++;
+					gameList.Add(new KeyValuePair<string,string>(title,gid));
                 }
                 page++;
             }
